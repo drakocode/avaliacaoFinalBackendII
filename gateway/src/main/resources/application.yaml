@@ -1,0 +1,157 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          api-gateway-provider:
+            issuer-uri: http://localhost:8082/realms/digitalhouse
+        registration:
+          api-gateway-registration:
+            provider: api-gateway-provider
+            client-id: gateway
+            client-secret: KaSpfAezI9Mttjb9qYW3oJCfvEOwXlm6
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: users-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/users/**
+
+server:
+  port: 9090
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#cloud:
+#  gateway:
+#    default-filters:
+#      - TokenRelay
+#    routes:
+#      - id: users-service
+#        uri: http://localhost:8080
+#        predicates:
+#          - Path=/users/**
+#
+#server:
+#  port: 9090
+#
+#
+##
+#  #
+#  #
+#  #
+##
+#
+#
+## Configuraciones del servidor
+#server:
+#  port: 8090
+## Configuraciones de eureka
+#eureka:
+#  instance:
+#    hostname: localhost
+#    prefer-ip-address: true
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka
+## Configuraciones de spring cloud
+#spring:
+#  main:
+#    web-application-type: reactive
+#    allow-bean-definition-overriding: true
+#  application:
+#    name: ms-gateway
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: ms-bill
+#          uri: lb://ms-bill
+#          predicates:
+#            - Path=/api/v1/**
+#          filters:
+#            - StripPrefix=2
+#    backend:
+#      default-filters:
+#        - TokenRelay
+#      routes:
+#        - id: users
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/users/**
+#  security:
+#    oauth2:
+#      client:
+#        provider:
+#          backend:  #não entendi que nome que eu coloco aqui, se é do client ou outra coisa
+#            issuer-uri: http://localhost:8080/realms/avaliacao
+#          registration:
+#            keycloak-spring-gateway-client:
+#              provider: backend
+#              client-id: backend
+#              client-secret: I2ma0Wih1XwnH9EI5nQbdAWycQE3yiW4
+#              authorization-grant-type: authorization_code
+#              redirect-uri: 'http://localhost:8080/login/oauth2/code/keycloak'
+#
+#  server:
+#    port: 8080   #copiei esse pedaço do pg n sei se ta certo
+#
+#
+#
+##              '{baseUrl}/login/oauth2/keycloak'

@@ -1,0 +1,47 @@
+spring:
+  #  main:
+  #    allow-bean-definition-overriding: true
+  application:
+    name: ms-bill
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password: sa
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  security:
+    oauth2:
+      client:
+        provider:
+          provedor-avaliacao:
+            issuer-uri: http://localhost:8080/realms/avaliacao
+          registration:
+            keycloak-spring-gateway-client:
+              provider: provedor-avaliacao
+              client-id: spring-gateway-client
+              client-secret: I2ma0Wih1XwnH9EI5nQbdAWycQE3yiW4
+              authorization-grant-type: authorization_code
+              redirect-uri: 'localhost:8080/login/oauth2/financeira'
+
+server:
+  port: ${PORT:0}
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
